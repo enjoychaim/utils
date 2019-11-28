@@ -86,6 +86,8 @@ class CustomThread(threading.Thread):
             self.state = ThreadState.FAILED
             logging.exception(e)
 
+    def is_finish(self):
+        return self.state == ThreadState.SUCCESS
 
 def task_mul(x, y):
     time.sleep(3)
