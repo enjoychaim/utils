@@ -17,6 +17,8 @@
 
 [简单的流处理](pipeline.py)
 
+[单分派泛实现工厂模式进行命令分发](singledispatch.py)
+
 [字符处理](str_.py)
 
 [线程处理](thread_.py)
