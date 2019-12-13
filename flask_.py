@@ -7,14 +7,7 @@ class MyResponse(Response):
     default_mimetype = 'application/json'
 
     def __init__(self, response=None, status=None, headers=None, mimetype=None, content_type=None, direct_passthrough=False):
-        # 兼容json与usjon
-        try:
-            import ujson as json
-            response = json.dumps(response)
-        except:
-            import json
-            response = json.dumps(response, default=self._json_default)
-
+        response = self.__class__._serialize(response)
         # 支持跨域
         if headers is None:
             headers = {'Access-Control-Allow-Origin': '*'}
@@ -28,6 +21,17 @@ class MyResponse(Response):
                                    content_type=content_type,
                                    direct_passthrough=direct_passthrough)
 
+    @classmethod
+    def _serialize(cls, response):
+        """兼容json与usjon的序列化"""
+        try:
+            import ujson as json
+            response = json.dumps(response)
+        except:
+            import json
+            response = json.dumps(response, default=cls._json_default)
+        return response
+
     def _dt_to_ts(self, dt):
         """datetime => 6位小数时间戳"""
         return time.mktime(dt.timetuple()) + dt.microsecond * 0.000001
@@ -38,6 +42,12 @@ class MyResponse(Response):
         if isinstance(dt, (datetime, date)):
             return self._dt_to_ts(dt)
         raise TypeError('Type %s not serialzable' % type(dt))
+
+    @classmethod
+    def force_type(cls, response, environ=None):
+        if isinstance(response, (list, dict)):
+            response = cls._serialize(response)
+        return super(Response, cls).force_type(response, environ)
 
 
 class MyFlask(Flask):
@@ -90,7 +100,7 @@ def root():
         'b': 2,
         'c': [3, 4, 5]
     }
-    return t
+    return None
 
 
 if __name__ == '__main__':
