@@ -7,6 +7,8 @@
 
 [优雅杀死](grace_killer.py)
 
+[gunicorn调研](gunicorn_.py)
+
 [序列化](json_.py)
 
 [列表操作](list_.py)
