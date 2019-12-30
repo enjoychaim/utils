@@ -5,6 +5,8 @@
 
 [DB操作](db.py)
 
+[doctest使用](doctest_.py)
+
 [优雅杀死](grace_killer.py)
 
 [gunicorn调研](gunicorn_.py)
