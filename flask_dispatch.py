@@ -1,19 +1,19 @@
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, url_for, abort
 
 app = Flask(__name__)
 
 
-@app.route('/api/hello', defaults={'version': 'v0'})
-@app.route('/api/<string:version>/hello')
+@app.route('/api/hello', defaults={'version': 'v0'}, methods=["GET", "POST"])
+@app.route('/api/<string:version>/hello', methods=["GET", "POST"])
 def hello(version):
     """旧版本或默认版本"""
-    return f'hello => default version or {version} version'
+    return f'hello => default version or {version} version, args: {request.args.to_dict()}'
 
 
-@app.route('/api/v2/hello')
+@app.route('/api/v2/hello', methods=["GET", "POST"])
 def hello_version():
     """version版本"""
-    return f'hello_version => v2 version'
+    return f'hello_version => v2 version, args: {request.args.to_dict()}'
 
 
 def _find_version():
@@ -29,16 +29,16 @@ def _find_version_api(version):
     return '/'.join(path_list)
 
 
-def _redirect_for_version_api():
+def _forward_for_version_api():
     version = _find_version()
     if not version:
         return
     version_api = _find_version_api(version)
-    return redirect(version_api)
+    request.url_rule.rule = version_api
 
 
 def _before_request():
-    return _redirect_for_version_api()
+    return _forward_for_version_api()
 
 
 if __name__ == '__main__':
