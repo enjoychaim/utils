@@ -23,6 +23,11 @@
 #### Socket
 - [udp消息发送与接收](socket_/udp_remote.py)
 - [tcp消息发送与接收](socket_/tcp_sixteen.py)
+- [ping实现](socket_/www_ping.py)
+- [dns查询](socket_/dns_basic.py)
+- [邮件ip查询](socket_/dns_mx.py)
+- [自定义数据库发送](socket_/blocks.py)
+- [断连接即不发数据](socket_/streamer.py)
 
 #### Flask
 - [Flask封装](flask_.py)
