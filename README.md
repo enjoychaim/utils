@@ -15,6 +15,7 @@
 - [pandas处理](pd.py)
 - [简单的流处理](pipeline.py)
 - [单分派泛实现工厂模式进行命令分发](singledispatch.py)
+- [线程安全的queue](queue_.py)
 
 #### Serialize
 - [解码与编码](codec_.py)
