@@ -16,6 +16,10 @@
 - [简单的流处理](pipeline.py)
 - [单分派泛实现工厂模式进行命令分发](singledispatch.py)
 - [线程安全的queue](queue_.py)
+- [耗时分析](profiler.py)
+
+#### Async
+- [tornado调研](async/tornado_.py)
 
 #### Serialize
 - [解码与编码](codec_.py)
