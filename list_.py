@@ -15,7 +15,7 @@ def chunk(iterable, iter_size, is_fill=False, filler=None):
     fill_size = iter_size - 1 if is_fill else 0
     it = itertools.chain(iterable, itertools.repeat(filler, fill_size))
     chunk = tuple(itertools.islice(it, iter_size))
-    while len(chunk) == iter_size:
+    while 0 < len(chunk) <= iter_size:
         yield chunk
         chunk = tuple(itertools.islice(it, iter_size))
 
